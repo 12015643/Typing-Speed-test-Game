@@ -9,14 +9,13 @@ top.configure(bg='powderblue')
 top.title("Typing speed test game0.")
 top.minsize(width=300, height=200)
 
-scorecount=0
 score=0
 miss=0
-#Close Button
+#close button
 closeButton = tk.Button(top, text='close', width='7', height='1',command=top.destroy)
 closeButton.pack(anchor=tk.NE)
 
-#Frames
+#frames
 frame0 = tk.Frame(top,height='40', width='60')
 frame0.configure(bg='powderblue')
 frame0.pack(anchor=tk.N)
@@ -29,8 +28,9 @@ frame2 = tk.Frame(top, height='40',width='60')
 frame2.configure(bg='powderblue')
 frame2.pack(anchor=tk.N)
 
-#Words for label matching
-words = ['ENVIRONMENT','EDUCATION','KNOWLEDGE']
+#words for label matching
+words = ['Water', 'is','the' ,'most' ,'important' ,'and' ,'valuable', 'natural', 'resource', 'on' ,'Earth']
+
 def startGame(event):
    global score,miss
    if(wordentry.get() == wordlabel['text']):
@@ -39,7 +39,11 @@ def startGame(event):
       print("score:",score)
    else:
       miss += 1
+      misslabelcount.configure(text=miss)
       print('miss:',miss)
+   if miss>=10:
+      rr2 = messagebox.askretrycancel('Notification', 'very bad!')
+
    random.shuffle(words)
    wordlabel.configure(text=words[0])
    print(wordentry.get())
@@ -62,7 +66,6 @@ def color_changer():
    text = random.choice(labels)
    fontlabel.config(text=text)
 
-
 fontlabel = tk.Label(frame0, font=('ariel', 30, 'bold'), bg="powderblue")
 fontlabel.pack()
 color_changer()
@@ -79,14 +82,16 @@ def var_name(mark):
          if count == -1:
             show = "Starting"
          elif count1 == 0:
-            rr = messagebox.askretrycancel('Notification', 'For play Again Hit retry button and then press reset')
+            rr = messagebox.askretrycancel('Notification', 'For play Again Hit retry button and do following \n 1.press Stop \n 2.press Reset')
          else:
             show = str(count)
          mark['text'] = show
-         #Increment the count after every 1 second
+         #Increment the count after
+         #every 1 second
          mark.after(1000, value)
          count -= 1
    value()
+
 #level1 start
 def Start(mark):
    global run
@@ -108,6 +113,9 @@ def var_name1(mark):
          # Just beore starting
          if count1 == -1:
             show = "Starting"
+         elif count1 == 0:
+            rr = messagebox.askretrycancel('Notification', 'For play Again Hit retry button and do following \n\n 1.press Stop \n 2.press Reset')
+
          else:
             show = str(count1)
          mark['text'] = show
@@ -116,6 +124,7 @@ def var_name1(mark):
          mark.after(1000, value1)
          count1 -= 1
    value1()
+
 #lvl2 start
 def Start1(mark):
    global run
@@ -137,6 +146,8 @@ def var_name2(mark):
          # Just beore starting
          if count2 == -1:
             show = "Starting"
+         elif count1 == 0:
+            rr = messagebox.askretrycancel('Notification', 'For play Again Hit retry button and do following \n 1.press Stop \n 2.press Reset')
          else:
             show = str(count2)
          mark['text'] = show
@@ -145,6 +156,7 @@ def var_name2(mark):
          mark.after(1000, value2)
          count2 -= 1
    value2()
+
 #level 3 start
 def Start2(mark):
    global run
@@ -155,7 +167,7 @@ def Start2(mark):
    lvl3_button['state'] = 'disabled'
    stop['state'] = 'normal'
    reset['state'] = 'normal'
-#timer code end for all level buttons
+#timer code end for all level buttons--*--
 
 # While stopped
 def Stop():
@@ -201,7 +213,6 @@ def Reset(label):
    else:
       mark['text'] = 'Start'
 
-
 #label for welcome
 mark = tk.Label(frame1, text="Choose your difficulty", fg="blue", font="Times 25 bold",bg="powderblue")
 mark.pack()
@@ -230,20 +241,23 @@ wordlabel.pack()
 #score label
 scorelabel = tk.Label(top,text="Your Score :", font=('airal',20,'italic bold'),bg='powderblue')
 scorelabel.place(x=50, y=200)
-
 scorelabelcount = tk.Label(top,text=score, font=('airal',20,'italic bold'),bg='powderblue')
 scorelabelcount.place(x=100, y=250)
 
+#miss score
+misslabel = tk.Label(top,text="Total wrong words :", font=('airal',20,'italic bold'),bg='powderblue')
+misslabel.place(x=1000, y=200)
+misslabelcount = tk.Label(top,text=miss, font=('airal',20,'italic bold'),bg='powderblue')
+misslabelcount.place(x=1100, y=250)
+
 null_label=tk.Label(frame2,bg="powderblue")
 null_label.pack()
-
 
 #word entry option
 wordentry = tk.Entry(frame2,font=('arial', 16, 'italic bold'), width='60' )
 wordentry.focus_set()
 wordentry.pack()
 top.bind('<Return>',startGame)
-
 null_label=tk.Label(frame2,bg="powderblue")
 null_label.pack()
 
@@ -253,10 +267,4 @@ gamelabel.pack()
 null_label=tk.Label(frame2,bg="powderblue")
 null_label.pack()
 
-#checkbtn
-
-checkbtn=tk.Button(top,text="Check your typo", width=13 ,height=1)
-checkbtn.place(x=1090, y=400)
-checklabel=tk.Label(top,font="Times 10 bold",width=20,height=1)
-checklabel.place(x=1070,y=430)
 top.mainloop()
